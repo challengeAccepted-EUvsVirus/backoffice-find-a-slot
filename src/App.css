@@ -1,5 +1,5 @@
 html, body {
-  background: url('./supermarket-delivery.jpg') center center no-repeat;
+  background: url('./supermarket-delivery.jpg') center center repeat;
   background-size: cover;
   color: white;
   height: 100%;

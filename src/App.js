@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
-import { Form, Col, Container, Row, Button, Image } from 'react-bootstrap';
+import { Form, Col, Container, Row, Button } from 'react-bootstrap';
+import TimeRange from 'react-time-range';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+import moment from 'moment';
 import './App.css';
 import { backendUrl } from './utils';
+
+class DayTimePicker extends React.Component {
+  render() {
+    return (
+      <Col>
+        <DayPicker/>
+        <TimeRange/>
+      </Col>
+    );
+  }
+}
+
 
 class App extends Component {
 
@@ -13,7 +29,8 @@ class App extends Component {
       formData: {
         postcode: "XXXXX",
       },
-      result: ""
+      result: "",
+      slots: [],
     };
   }
 
@@ -57,27 +74,14 @@ class App extends Component {
     this.setState({ result: "" });
   }
 
-  render() {
-    const isLoading = this.state.isLoading;
-    const formData = this.state.formData;
-    const result = this.state.result;
+  handleAddNewScheduleClick = (event) => {
+    var joined = this.state.slots.concat('');
+    this.setState({ slots: joined })
+  }
 
-    var sepalLengths = []
-    for (var i = 4; i <= 7; i = +(i + 0.1).toFixed(1)) {
-      sepalLengths.push(<option key = {i} value = {i}>{i}</option>);
-    }
-    var sepalWidths = []
-    for (let i = 2; i <= 4; i = +(i + 0.1).toFixed(1)) {
-      sepalWidths.push(<option key = {i} value = {i}>{i}</option>);
-    }
-    var petalLengths = []
-    for (let i = 1; i <= 6; i = +(i + 0.1).toFixed(1)){
-      petalLengths.push(<option key = {i} value = {i}>{i}</option>);
-    }
-    var petalWidths = []
-    for (let i = 0.1; i <= 3; i = +(i + 0.1).toFixed(1)) {
-      petalWidths.push(<option key = {i} value = {i}>{i}</option>);
-    }
+  render() {
+    const {isLoading, formData, result, slots} = this.state
+
     return (
       <Container>
         <div>
@@ -97,8 +101,12 @@ class App extends Component {
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col}>
-                <Form.Label>Postcode</Form.Label>
-                <Form.Control name="postal_code" placeholder="N11 M22" />
+                <Form.Row>
+                  <Button variant="primary" onClick={this.handleAddNewScheduleClick}>New slot</Button>
+                </Form.Row>
+                <Row>
+                  {slots.map(() => <DayTimePicker/>)}
+                </Row>
               </Form.Group>
             </Form.Row>
             <Row>
@@ -124,7 +132,6 @@ class App extends Component {
           </Form>
           {result === "" ? null :
           <Row>
-            <Image src="holder.js/100px250" fluid />
           </Row>
           }
         </div>
