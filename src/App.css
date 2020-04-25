@@ -1,7 +1,7 @@
 html, body {
   background: url('./supermarket-delivery.jpg') center center repeat;
   background-size: cover;
-  color: white;
+  /* color: white; */
   height: 100%;
   width: 100%;
 }
