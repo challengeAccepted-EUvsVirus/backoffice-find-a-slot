@@ -26,9 +26,9 @@ class App extends Component {
 
     this.state = {
       isLoading: false,
-      formData: {
-        postcode: "XXXXX",
-      },
+      country: 'ES',
+      postal_codes: "28023, 28004",
+      formData: {},
       result: "",
       slots: [],
     };
@@ -71,7 +71,7 @@ class App extends Component {
   }
 
   handleClearClick = (event) => {
-    this.setState({ result: "" });
+    this.setState({ slots: [] });
   }
 
   handleAddNewScheduleClick = (event) => {
